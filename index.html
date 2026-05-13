@@ -165,29 +165,19 @@
   .radio-item input[type="radio"] { accent-color: var(--blue); width: 16px; height: 16px; flex-shrink: 0; appearance: none; -webkit-appearance: none; border: 2px solid rgba(26,39,68,0.3); border-radius: 50%; background: white; cursor: pointer; position: relative; transition: border-color 0.2s; }
   .radio-item input[type="radio"]:checked { border-color: var(--blue); background: var(--blue); box-shadow: inset 0 0 0 3px white; }
 
-  .activity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .act-card {
-    display: flex; align-items: center; gap: 12px;
-    background: white; border: 2px solid rgba(26,39,68,0.12);
-    border-radius: 8px; padding: 13px 15px;
-    cursor: pointer; transition: all 0.2s;
-    font-size: 14px; color: var(--navy-dark); font-weight: 500;
-    user-select: none; -webkit-user-select: none;
+  .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .checkbox-item {
+    display: flex; align-items: center; gap: 10px; background: white;
+    border: 1.5px solid rgba(26,39,68,0.12); border-radius: 6px; padding: 11px 14px;
+    cursor: pointer; transition: all 0.2s; font-size: 13px; color: var(--navy-dark);
+    user-select: none; position: relative;
   }
-  .act-card:hover { border-color: var(--blue); background: rgba(37,99,196,0.04); }
-  .act-card.selected {
-    border-color: var(--blue); background: rgba(37,99,196,0.08);
-    color: var(--navy);
+  .checkbox-item:hover { border-color: var(--blue); background: rgba(37,99,196,0.04); }
+  .checkbox-item input[type="checkbox"] {
+    accent-color: var(--blue); width: 18px; height: 18px; flex-shrink: 0;
+    cursor: pointer; margin: 0; padding: 0; position: relative; z-index: 1;
   }
-  .act-check {
-    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
-    border: 2px solid rgba(26,39,68,0.2); background: white;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; font-size: 13px; color: transparent;
-  }
-  .act-card.selected .act-check {
-    background: var(--blue); border-color: var(--blue); color: white;
-  }
+  .checkbox-item.checked { border-color: var(--blue); background: rgba(37,99,196,0.07); }
 
   .divider { height: 1px; background: rgba(26,39,68,0.1); margin: 34px 0; }
   .sec-heading {
@@ -198,7 +188,7 @@
 
   /* PRICING */
   .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 480px) { .pricing-grid { grid-template-columns: 1fr; } .activity-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .pricing-grid { grid-template-columns: 1fr; } .checkbox-group { grid-template-columns: 1fr; } }
 
   .plan-card {
     border: 2px solid rgba(26,39,68,0.14); border-radius: 10px; padding: 22px;
@@ -239,56 +229,26 @@
   .ps-total-val { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--blue-light); font-weight: 700; }
 
   /* UPI PAYMENT */
-  .upi-section { margin-top: 20px; display: none; animation: fadeUp 0.35s ease; }
+  .upi-section { margin-top: 14px; display: none; animation: fadeUp 0.3s ease; }
   .upi-section.visible { display: block; }
-  .pay-step-header {
-    background: linear-gradient(135deg, var(--navy-dark), var(--navy));
-    border-radius: 10px 10px 0 0; padding: 16px 22px;
-    display: flex; align-items: center; gap: 12px;
-    border: 1px solid rgba(74,144,226,0.2); border-bottom: none;
+  .upi-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; color: var(--navy); margin-bottom: 14px; display: block; }
+  .upi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+  .upi-btn {
+    background: white; border: 1.5px solid rgba(26,39,68,0.15); border-radius: 8px;
+    padding: 14px 8px; text-align: center; cursor: pointer; transition: all 0.2s;
+    font-size: 13px; font-weight: 500; color: var(--navy-dark); text-decoration: none;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
-  .pay-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .pay-step-title { font-size: 14px; font-weight: 600; color: var(--silver-light); letter-spacing: 0.5px; }
-  .pay-step-sub { font-size: 12px; color: rgba(200,212,232,0.5); margin-top: 2px; }
-  .pay-body { background: white; border: 1px solid rgba(26,39,68,0.15); border-radius: 0 0 10px 10px; padding: 22px; }
-  .amount-banner { background: linear-gradient(135deg, var(--navy), var(--blue)); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .amount-banner-left .amount-banner-label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
-  .amount-banner-left .amount-banner-val { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 700; color: white; line-height: 1; }
-  .amount-banner-left .amount-banner-plan { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 4px; }
-  .amount-banner-right { text-align: right; }
-  .amount-banner-right .upi-lbl { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .amount-banner-right .upi-val { font-size: 13px; color: white; font-weight: 600; }
-  .pay-tabs { display: flex; border: 1.5px solid rgba(26,39,68,0.15); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
-  .pay-tab { flex: 1; padding: 11px 6px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 500; color: rgba(15,26,48,0.5); background: white; border: none; border-right: 1px solid rgba(26,39,68,0.1); transition: all 0.18s; font-family: 'Outfit', sans-serif; }
-  .pay-tab:last-child { border-right: none; }
-  .pay-tab.active { background: var(--navy); color: white; font-weight: 600; }
-  .pay-tab:hover:not(.active) { background: rgba(37,99,196,0.06); color: var(--navy); }
-  .pay-panel { display: none; }
-  .pay-panel.active { display: block; animation: fadeUp 0.2s ease; }
-  .qr-wrap { text-align: center; padding: 8px 0 14px; }
-  .qr-canvas { border: 2px solid rgba(26,39,68,0.1); border-radius: 10px; padding: 10px; background: white; display: inline-block; }
-  .qr-hint { font-size: 13px; color: rgba(15,26,48,0.5); margin-top: 12px; line-height: 1.6; }
-  .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .app-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; background: white; border: 1.5px solid rgba(26,39,68,0.12); border-radius: 10px; padding: 16px 8px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--navy-dark); }
-  .app-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,196,0.15); border-color: var(--blue); }
-  .app-btn-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-  .app-btn-name { font-size: 12px; font-weight: 600; }
-  .app-note { font-size: 12px; color: rgba(15,26,48,0.45); text-align: center; margin-top: 14px; line-height: 1.6; padding: 10px; background: rgba(37,99,196,0.04); border-radius: 6px; }
-  .manual-wrap { text-align: center; }
-  .upi-id-display { background: rgba(37,99,196,0.05); border: 2px dashed rgba(37,99,196,0.3); border-radius: 10px; padding: 20px; margin-bottom: 14px; }
-  .upi-id-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(15,26,48,0.4); margin-bottom: 8px; }
-  .upi-id-text { font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: 0.5px; user-select: all; }
-  .upi-copy-btn { background: var(--blue); color: white; border: none; border-radius: 6px; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; margin-top: 10px; transition: all 0.2s; }
-  .upi-copy-btn:hover { background: var(--navy); }
-  .manual-steps { text-align: left; background: rgba(37,99,196,0.04); border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
-  .manual-steps p { font-size: 13px; color: rgba(15,26,48,0.6); margin-bottom: 6px; line-height: 1.6; }
-  .manual-steps p:last-child { margin-bottom: 0; }
-  .utr-box { background: rgba(40,160,90,0.06); border: 1.5px solid rgba(40,160,90,0.25); border-radius: 10px; padding: 20px; margin-top: 20px; }
-  .utr-title { font-size: 15px; font-weight: 700; color: #1a6b3a; margin-bottom: 6px; }
-  .utr-sub { font-size: 13px; color: rgba(15,26,48,0.55); margin-bottom: 14px; line-height: 1.5; }
-  .utr-input { width: 100%; border: 1.5px solid rgba(26,39,68,0.2); border-radius: 6px; padding: 13px 15px; font-size: 15px; font-family: 'Outfit', sans-serif; color: var(--navy-dark); outline: none; margin-bottom: 8px; background: white; letter-spacing: 0.5px; }
-  .utr-input:focus { border-color: #28a05a; box-shadow: 0 0 0 3px rgba(40,160,90,0.1); }
-  .utr-hint { font-size: 12px; color: rgba(15,26,48,0.4); margin-bottom: 14px; }
+  .upi-btn:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(37,99,196,0.12); transform: translateY(-1px); }
+  .upi-btn svg, .upi-btn img { width: 32px; height: 32px; }
+  .upi-or { text-align: center; font-size: 12px; color: rgba(15,26,48,0.4); margin: 10px 0; position: relative; }
+  .upi-or::before, .upi-or::after { content: ''; position: absolute; top: 50%; width: calc(50% - 24px); height: 1px; background: rgba(15,26,48,0.12); }
+  .upi-or::before { left: 0; }
+  .upi-or::after { right: 0; }
+  .upi-id-box { background: rgba(37,99,196,0.06); border: 1.5px dashed rgba(37,99,196,0.3); border-radius: 8px; padding: 14px 18px; text-align: center; margin-top: 10px; }
+  .upi-id-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(15,26,48,0.45); margin-bottom: 6px; }
+  .upi-id-val { font-size: 17px; font-weight: 600; color: var(--navy); letter-spacing: 0.5px; }
+  .upi-copy-btn { margin-top: 8px; background: var(--blue); color: white; border: none; border-radius: 4px; padding: 6px 14px; font-size: 12px; cursor: pointer; font-family: 'Outfit', sans-serif; }
 
   /* SUBMIT */
   .submit-btn {
@@ -302,13 +262,23 @@
   .form-note { text-align: center; font-size: 12px; color: rgba(15,26,48,0.4); margin-top: 10px; line-height: 1.6; }
 
   /* PAID CONFIRMATION */
+  .paid-confirm { display: none; }
+  .paid-confirm.visible { display: block; }
+  .paid-confirm-box {
+    background: white; border: 2px solid rgba(37,99,196,0.2); border-radius: 12px;
+    padding: 24px; margin-top: 16px;
+  }
+  .paid-confirm-box h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--navy); margin-bottom: 12px; }
+  .paid-confirm-box p { font-size: 14px; color: rgba(15,26,48,0.6); line-height: 1.6; margin-bottom: 10px; }
+  .paid-ref-input { width: 100%; border: 1.5px solid rgba(26,39,68,0.2); border-radius: 6px; padding: 12px 14px; font-size: 15px; font-family: 'Outfit', sans-serif; color: var(--navy-dark); outline: none; margin-bottom: 12px; }
+  .paid-ref-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,196,0.1); }
   .confirm-submit-btn {
     width: 100%; background: linear-gradient(135deg, #1a6b3a, #28a05a);
     color: white; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;
     letter-spacing: 2px; padding: 18px; border: none; border-radius: 8px; cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s; margin-top: 4px;
   }
-  .confirm-submit-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(40,160,90,0.25); }
+  .confirm-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(40,160,90,0.25); }
   .confirm-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* SUCCESS */
@@ -442,27 +412,14 @@
       <div class="sec-heading">Activity Preferences</div>
       <div class="form-group">
         <label>Which activities excite you most?</label>
-        <div class="activity-grid" id="activityGrid">
-          <div class="act-card" onclick="toggleActivity(this, 'Swimming')">
-            <div class="act-check">✓</div>🏊 Swimming
-          </div>
-          <div class="act-card" onclick="toggleActivity(this, 'Box Cricket')">
-            <div class="act-check">✓</div>🏏 Box Cricket
-          </div>
-          <div class="act-card" onclick="toggleActivity(this, 'Gaming Hub')">
-            <div class="act-check">✓</div>🎮 Gaming Hub
-          </div>
-          <div class="act-card" onclick="toggleActivity(this, 'Adventure Activities')">
-            <div class="act-check">✓</div>🧗 Adventure
-          </div>
-          <div class="act-card" onclick="toggleActivity(this, 'Resort Vibes')">
-            <div class="act-check">✓</div>🌴 Resort Vibes
-          </div>
-          <div class="act-card" onclick="toggleActivity(this, 'Conversations')">
-            <div class="act-check">✓</div>🤝 Conversations
-          </div>
+        <div class="checkbox-group">
+          <label class="checkbox-item"><input type="checkbox" value="Swimming"> 🏊 Swimming</label>
+          <label class="checkbox-item"><input type="checkbox" value="Box Cricket"> 🏏 Box Cricket</label>
+          <label class="checkbox-item"><input type="checkbox" value="Gaming Hub"> 🎮 Gaming Hub</label>
+          <label class="checkbox-item"><input type="checkbox" value="Adventure"> 🧗 Adventure</label>
+          <label class="checkbox-item"><input type="checkbox" value="Resort Vibes"> 🌴 Resort Vibes</label>
+          <label class="checkbox-item"><input type="checkbox" value="Conversations"> 🤝 Conversations</label>
         </div>
-        <input type="hidden" id="activitiesHidden" value="">
       </div>
 
       <div class="divider"></div>
@@ -541,106 +498,48 @@
 
       <!-- UPI PAYMENT SECTION -->
       <div class="upi-section" id="upiSection">
-        <div class="pay-step-header">
-          <div class="pay-step-num">2</div>
-          <div>
-            <div class="pay-step-title">Complete Payment via UPI</div>
-            <div class="pay-step-sub">Choose any method below — all go to the same UPI ID</div>
-          </div>
+        <span class="upi-label">Step 2 — Complete Payment via UPI</span>
+        <div class="upi-grid">
+          <a class="upi-btn" id="gpayBtn" href="#" target="_blank">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#fff"/>
+              <text x="20" y="26" text-anchor="middle" font-size="11" font-family="Arial" font-weight="bold" fill="#4285F4">G</text>
+              <text x="20" y="26" text-anchor="middle" font-size="11" font-family="Arial" font-weight="bold" fill="#4285F4">G Pay</text>
+            </svg>
+            <span style="font-size:11px; color:#4285F4; font-weight:700;">Google Pay</span>
+          </a>
+          <a class="upi-btn" id="phonepeBtn" href="#" target="_blank">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#5f259f"/>
+              <text x="20" y="25" text-anchor="middle" font-size="9" font-family="Arial" font-weight="bold" fill="white">PhonePe</text>
+            </svg>
+            <span style="font-size:11px; color:#5f259f; font-weight:700;">PhonePe</span>
+          </a>
+          <a class="upi-btn" id="paytmBtn" href="#" target="_blank">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#00BAF2"/>
+              <text x="20" y="25" text-anchor="middle" font-size="9" font-family="Arial" font-weight="bold" fill="white">Paytm</text>
+            </svg>
+            <span style="font-size:11px; color:#00BAF2; font-weight:700;">Paytm</span>
+          </a>
         </div>
-        <div class="pay-body">
+        <div class="upi-or">or pay directly using UPI ID</div>
+        <div class="upi-id-box">
+          <div class="upi-id-label">UPI ID</div>
+          <div class="upi-id-val" id="upiIdDisplay">raghuteja03.p-4@okicici</div>
+          <button class="upi-copy-btn" onclick="copyUpi()">📋 Copy UPI ID</button>
+        </div>
 
-          <!-- Amount banner -->
-          <div class="amount-banner">
-            <div class="amount-banner-left">
-              <div class="amount-banner-label">Total Payable</div>
-              <div class="amount-banner-val" id="bannerAmount">₹0</div>
-              <div class="amount-banner-plan" id="bannerPlan"></div>
-            </div>
-            <div class="amount-banner-right">
-              <div class="upi-lbl">Pay to UPI ID</div>
-              <div class="upi-val">raghuteja03.p-4@okicici</div>
-            </div>
-          </div>
-
-          <!-- Method tabs -->
-          <div class="pay-tabs">
-            <button class="pay-tab active" onclick="switchTab('qr')">📱 QR Code</button>
-            <button class="pay-tab" onclick="switchTab('apps')">🚀 UPI Apps</button>
-            <button class="pay-tab" onclick="switchTab('manual')">⌨️ Manual Pay</button>
-          </div>
-
-          <!-- QR Panel -->
-          <div class="pay-panel active" id="panel-qr">
-            <div class="qr-wrap">
-              <div class="qr-canvas">
-                <canvas id="qrCanvas" width="200" height="200"></canvas>
-              </div>
-              <p class="qr-hint">
-                Open any UPI app → Scan this QR → Pay <strong id="qrAmount"></strong><br>
-                Works with GPay, PhonePe, Paytm, BHIM & all UPI apps
-              </p>
-            </div>
-          </div>
-
-          <!-- Apps Panel -->
-          <div class="pay-panel" id="panel-apps">
-            <div class="app-grid">
-              <a class="app-btn" id="gpayBtn" href="#" onclick="openApp('gpay', event)">
-                <div class="app-btn-icon" style="background:#e8f0fe;">
-                  <svg width="30" height="30" viewBox="0 0 48 48"><text y="34" font-size="32">G</text></svg>
-                </div>
-                <span class="app-btn-name" style="color:#4285F4;">Google Pay</span>
-              </a>
-              <a class="app-btn" id="phonepeBtn" href="#" onclick="openApp('phonepe', event)">
-                <div class="app-btn-icon" style="background:#f3e8ff;">
-                  <svg width="30" height="30" viewBox="0 0 48 48"><text y="34" font-size="26" fill="#5f259f">Pe</text></svg>
-                </div>
-                <span class="app-btn-name" style="color:#5f259f;">PhonePe</span>
-              </a>
-              <a class="app-btn" id="paytmBtn" href="#" onclick="openApp('paytm', event)">
-                <div class="app-btn-icon" style="background:#e0f7ff;">
-                  <svg width="30" height="30" viewBox="0 0 48 48"><text y="34" font-size="18" fill="#00BAF2">Pay</text></svg>
-                </div>
-                <span class="app-btn-name" style="color:#00BAF2;">Paytm</span>
-              </a>
-            </div>
-            <div class="app-note">
-              📱 <strong>Mobile only</strong> — tap an app to open it directly with the amount pre-filled.<br>
-              On desktop, use the QR Code tab instead.
-            </div>
-          </div>
-
-          <!-- Manual Panel -->
-          <div class="pay-panel" id="panel-manual">
-            <div class="manual-wrap">
-              <div class="upi-id-display">
-                <div class="upi-id-lbl">UPI ID</div>
-                <div class="upi-id-text">raghuteja03.p-4@okicici</div>
-                <button class="upi-copy-btn" onclick="copyUpi()">📋 Copy UPI ID</button>
-              </div>
-              <div class="manual-steps">
-                <p>1️⃣ Open any UPI app (GPay, PhonePe, Paytm, BHIM, etc.)</p>
-                <p>2️⃣ Go to <strong>Send Money → UPI ID / Pay</strong></p>
-                <p>3️⃣ Paste UPI ID: <strong>raghuteja03.p-4@okicici</strong></p>
-                <p>4️⃣ Enter amount: <strong id="manualAmount"></strong></p>
-                <p>5️⃣ Add note: <strong>Docs Collab Registration</strong></p>
-                <p>6️⃣ Pay &amp; note the UTR / Transaction ID shown after payment</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- UTR Entry (shown on all tabs) -->
-          <div class="utr-box">
-            <div class="utr-title">✅ Done Paying? Enter Your Transaction ID</div>
-            <div class="utr-sub">After payment is complete, enter the UTR / Transaction ID from your UPI app. We'll verify and send your confirmation email.</div>
-            <input class="utr-input" id="payRef" type="text" placeholder="e.g. 412345678901 (12-digit UTR)">
-            <div class="utr-hint">💡 Find it in your UPI app → Transaction History → last payment</div>
+        <div class="paid-confirm" id="paidConfirm">
+          <div class="paid-confirm-box">
+            <h4>✅ Paid? Enter Your Payment Reference</h4>
+            <p>After completing the payment, please enter your UPI transaction ID / UTR number below. We'll verify and send your confirmation email with all event details.</p>
+            <input class="paid-ref-input" id="payRef" type="text" placeholder="e.g. 412345678901 (UTR / Transaction ID)">
+            <p style="font-size:12px; color:rgba(15,26,48,0.4); margin-bottom:10px;">💡 You can find the UTR / Transaction ID in your UPI app's payment history</p>
             <button type="button" class="confirm-submit-btn" id="confirmBtn" onclick="confirmPayment()">
               CONFIRM MY REGISTRATION ✓
             </button>
           </div>
-
         </div>
       </div>
 
@@ -676,18 +575,12 @@
 </footer>
 
 <script>
-  // Activity toggle
-  const selectedActivities = new Set();
-  function toggleActivity(card, value) {
-    if (selectedActivities.has(value)) {
-      selectedActivities.delete(value);
-      card.classList.remove('selected');
-    } else {
-      selectedActivities.add(value);
-      card.classList.add('selected');
-    }
-    document.getElementById('activitiesHidden').value = [...selectedActivities].join(', ');
-  }
+  // Checkbox visual feedback
+  document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      this.closest('.checkbox-item').classList.toggle('checked', this.checked);
+    });
+  });
 
   // Radio visual feedback
   document.querySelectorAll('.radio-item input[type="radio"]').forEach(rb => {
@@ -728,6 +621,7 @@
 
     // Hide UPI section if re-selecting plan
     document.getElementById('upiSection').classList.remove('visible');
+    document.getElementById('paidConfirm').classList.remove('visible');
   }
 
   function proceedToPayment() {
@@ -758,6 +652,10 @@
     upiSec.classList.add('visible');
     upiSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    // Show payment confirm box after 3 seconds (giving time to open app)
+    setTimeout(() => {
+      document.getElementById('paidConfirm').classList.add('visible');
+    }, 3000);
 
     document.getElementById('submitBtn').textContent = '✓ Choose UPI App Below to Pay';
     document.getElementById('submitBtn').style.opacity = '0.7';
@@ -795,7 +693,7 @@
     btn.disabled    = true;
     btn.textContent = 'SUBMITTING…';
 
-    const activities = document.getElementById('activitiesHidden').value || 'Not specified';
+    const activities = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(cb => cb.value).join(', ');
     const p = PLANS[selectedPlan];
 
     const data = {
